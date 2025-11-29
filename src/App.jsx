@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import firebase from './firebase';
+import { getDatabase, ref, onValue } from "firebase/database";
+
 import AdminPage from './AdminPage';
 import ParticipantPage from './ParticipantPage';
 import WaitingListPage from './WaitingListPage';
@@ -9,6 +13,38 @@ function App() {
   const [participants, setParticipants] = useState({}); // { eventId: [names] }
   const [waitingList, setWaitingList] = useState({}); // { eventId: [names] }
 
+  useEffect(() => {
+    // Initialize the Firebase database with the provided configuration
+    const database = getDatabase(firebase);
+    
+    // Reference to the specific collection in the database
+    const collectionRef = ref(database, "Events");
+
+    // Function to fetch data from the database
+    const fetchData = () => {
+      // Listen for changes in the collection
+      onValue(collectionRef, (snapshot) => {
+        const dataItem = snapshot.val();
+
+        // Check if dataItem exists
+        if (dataItem) {
+          // Convert the object values into an array
+          //const displayItem = Object.entries(dataItem);
+          //const displayItem = dataItem;
+          const dataArray = Object.entries(dataItem).map(([key, value]) => ({
+            id: key,
+            ...value
+          }));
+          
+          setEvents(dataArray);
+        }
+      });
+    };
+
+    // Fetch data when the component mounts
+    fetchData();
+  }, []);
+  console.log(events);
   return (
     <Router>
       <div style={{ padding: '20px', maxWidth: '900px', margin: 'auto' }}>
@@ -49,7 +85,17 @@ function App() {
             />}
           />
         </Routes>
-      </div>
+        </div>
+        {/*
+        <div>
+        <h1>Data from database:</h1>
+        <ul>
+        {events.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+        </ul>
+        </div>
+        */}
     </Router>
   );
 }
