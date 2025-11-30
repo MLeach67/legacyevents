@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import firebase from './firebase';
 import { getDatabase, ref, onValue } from "firebase/database";
 
+import Login from './Login';
+import CreateAccount from './CreateAccount';
 import AdminPage from './AdminPage';
 import ParticipantPage from './ParticipantPage';
 import WaitingListPage from './WaitingListPage';
@@ -44,19 +46,39 @@ function App() {
     // Fetch data when the component mounts
     fetchData();
   }, []);
-  console.log(events);
+  //console.log(events);
   return (
     <Router>
       <div style={{ padding: '20px', maxWidth: '900px', margin: 'auto' }}>
         <nav style={{ marginBottom: '20px' }}>
-          <Link to="/" style={{ marginRight: '10px' }}>Participant Page</Link>
+          <Link to="/signup" style={{ marginRight: '10px' }}>Participant Page</Link>
           <Link to="/admin" style={{ marginRight: '10px' }}>Admin Page</Link>
           <Link to="/waiting">Waiting List</Link>
         </nav>
 
         <Routes>
-          <Route
+        <Route
             path="/"
+            element={<Login
+            //  events={events}
+            //  participants={participants}
+            //  setParticipants={setParticipants}
+            //  waitingList={waitingList}
+            //  setWaitingList={setWaitingList}
+            />}
+          />
+        <Route
+            path="/createaccount"
+            element={<CreateAccount
+            //  events={events}
+            //  participants={participants}
+            //  setParticipants={setParticipants}
+            //  waitingList={waitingList}
+            //  setWaitingList={setWaitingList}
+            />}
+          />          
+          <Route
+            path="/signup"
             element={<ParticipantPage
               events={events}
               participants={participants}
