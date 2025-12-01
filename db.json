@@ -1,0 +1,50 @@
+{
+    "events": {
+        "10Ball": {
+            "Name": "10Ball Weekly",
+            "Date": "12/5/2025",
+            "Price": "10",
+            "maxParticipants": "24"
+        },
+        "9Ball": {
+            "Name": "9Ball Special",
+            "Date": "12/6/2025",
+            "Price": "50",
+            "maxParticipants": "12"
+        }
+    },
+    "participants": {
+        0: {
+            "fname": "Marshall",
+            "lname": "Leach",
+            "phone": 5095555555,
+            "email": "marshall@email.com",
+            "fargo": 475,
+            "apa8": 6,
+            "apa9": 6,
+            "uid": 1234567890,
+            "10Ball": {
+                "waitlist": false,
+                "paid": true
+            }
+        },
+        1: {
+            "fname": "Doug",
+            "lname": "Phillips",
+            "phone": 5095555555,
+            "email": "",
+            "fargo": 425,
+            "apa8": 4,
+            "apa9": 4,
+            "uid": 1234567891,
+            "10Ball": {
+                "waitlist": true,
+                "paid": false
+            },
+            "9Ball": {
+                "waitlist": false,
+                "paid": false
+            }
+        }
+    }
+}
